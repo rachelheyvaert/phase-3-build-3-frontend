@@ -1,21 +1,12 @@
-
-import { Button, makeStyles } from '@material-ui/core';
-import NavBar from './components/navigation/NavBar';
-
-const useStyles = makeStyles({
-  button: {
-    backgroundColor: 'violet'
-  },
-  default: {
-    backgroundColor: 'blue'
-  }
-})
+import React from "react";
+import NavBar from "../src/components/NavBar.jsx"
 const App = () => {
-  const classes = useStyles();
+
   return (
     <div>
-      <h1 >Mission Possible</h1>
-      <Button className={ classes.button } variant="contained">Accept</Button>
+      <NavBar />
+      <h1>Mission Possible</h1>
+      {/* <Button  variant="contained">Accept</Button> */}
     </div>
   );
 }
