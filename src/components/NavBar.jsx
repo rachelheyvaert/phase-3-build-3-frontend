@@ -10,21 +10,23 @@ import MenuIcon from '@mui/icons-material/Menu';
 const NavBar = () => {
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
+      <AppBar position="static" style={{backgroundColor:"#000000"}} >
         <Toolbar>
           <IconButton
             size="large"
             edge="start"
-            color="inherit"
+            style={{color:"#7FFF00"}}
             aria-label="menu"
             sx={{ mr: 2 }}
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            News
+          <Typography  style={{color:"#7FFF00"}} variant="h6" component="div" sx={{ flexGrow: 1 }}>
+            Assignments
           </Typography>
-          <Button color="inherit">Login</Button>
+          <Button style={{color:"#7FFF00"}}>Home</Button>
+          <Button style={{color:"#7FFF00"}}>Add</Button>
+          <Button style={{color:"#7FFF00"}}>Completed</Button>
         </Toolbar>
       </AppBar>
     </Box>
