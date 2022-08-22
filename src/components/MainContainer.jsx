@@ -46,7 +46,7 @@ export const MainContainer = () => {
       />
       <Route path="/todos"
       element={<TodoList 
-      activities={filteredTodos}
+      todos={filteredTodos}
       setFilterBy={setFilterBy}
       filter={filterBy}
       handleDeleteClick={handleDeleteClick}/>} 
