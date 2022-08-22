@@ -1,11 +1,13 @@
 import React from "react";
 import NavBar from "../src/components/NavBar.jsx"
+import MainContainer from "./components/MainContainer.jsx";
 const App = () => {
 
   return (
     <div>
       <NavBar />
-      <h1>Mission Possible</h1>
+      <MainContainer />
+      
       {/* <Button  variant="contained">Accept</Button> */}
     </div>
   );

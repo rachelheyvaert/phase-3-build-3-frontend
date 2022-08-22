@@ -17,12 +17,10 @@ const NavBar = () => {
             edge="start"
             style={{color:"#7FFF00"}}
             aria-label="menu"
-            sx={{ mr: 2 }}
-          >
-            <MenuIcon />
+            sx={{ mr: 1 }}>
           </IconButton>
           <Typography  style={{color:"#7FFF00"}} variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            Assignments
+            Control Center
           </Typography>
           <Button style={{color:"#7FFF00"}}>Home</Button>
           <Button style={{color:"#7FFF00"}}>Add</Button>
