@@ -20,8 +20,23 @@ export const MainContainer = () => {
       const updatedTodoList = [...todos, newTodo];
       setTodos(updatedTodoList);
     }
-  
+ 
 
+      function handleDeleteClick(todo) {
+        fetch(`http://localhost:9292/todos/${todo.id}`, {
+           method: "DELETE",
+        })
+        const updatedTodos = todos.filter((task)=> task !== todo);
+        setTodos(updatedTodos);
+      }
+    const filteredTodos = todosToDisplay.filter((todo)=>{
+        if(filterBy !== "All"){
+          return activity.category === filterBy
+        } else {
+          return todos
+        }
+      });
+     
   return (
     <div>
         <h1>Mission Possible</h1>
@@ -30,7 +45,11 @@ export const MainContainer = () => {
       element= {<MainContainer />} 
       />
       <Route path="/todos"
-      element={<TodoList />} 
+      element={<TodoList 
+      activities={filteredTodos}
+      setFilterBy={setFilterBy}
+      filter={filterBy}
+      handleDeleteClick={handleDeleteClick}/>} 
       />
       <Route path="/todos/new" 
         element={<Form 

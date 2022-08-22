@@ -5,7 +5,6 @@ import FormControl from '@mui/material/FormControl';
 import FormHelperText from '@mui/material/FormHelperText';
 import Input from '@mui/material/Input';
 import InputLabel from '@mui/material/InputLabel';
-import OutlinedInput from '@mui/material/OutlinedInput';
 import Button from '@mui/material/Button';
 import { Typography } from '@mui/material';
 
@@ -13,14 +12,12 @@ const Form = ({onAddTodo}) => {
     const [formData, setFormData] = useState({
         name: "",
         description: "",
-       category: "",
-        isFinished: false,
+       category: ""
       })
        const emptyForm = {
         name: "",
         description: "",
-       category: "",
-        isFinished: false
+       category: ""
         }
         function handleSubmit(e){
             e.preventDefault()
@@ -52,7 +49,7 @@ const Form = ({onAddTodo}) => {
     Create a Mission</Typography>
 <Box  sx={{ '& > :not(style)': { m: 8} }} style={{backgroundColor:"#219ebc", textAlign: "center", marginLeft:"10%", marginRight: "10%", marginTop:"3%"}}>
 <FormControl  variant="standard" onSubmit={handleSubmit} >
-<InputLabel style={{color:"#ffb703"}}> Title of Activity..</InputLabel>
+<InputLabel style={{color:"#ffb703"}}> Title of Mission...</InputLabel>
   <Input 
     id="name"
     value={formData.name}
