@@ -11,7 +11,7 @@ import { Typography } from '@mui/material';
 const Form = ({onAddTodo}) => {
     const [formData, setFormData] = useState({
         name: "",
-        description: "",
+        details: "",
        category: ""
       })
        const emptyForm = {
@@ -45,11 +45,11 @@ const Form = ({onAddTodo}) => {
            }
 
   return (
-    <div><Typography sx={{ flexGrow: 5 }}  mt="20px" variant="h3" align="center" style={{color:"#023047"}}>
+    <div><Typography sx={{ flexGrow: 5 }}  mt="20px" variant="h3" align="center" style={{color:"#7FFF00"}}>
     Create a Mission</Typography>
-<Box  sx={{ '& > :not(style)': { m: 8} }} style={{backgroundColor:"#219ebc", textAlign: "center", marginLeft:"10%", marginRight: "10%", marginTop:"3%"}}>
+<Box  sx={{ '& > :not(style)': { m: 8} }} style={{backgroundColor:"grey", textAlign: "center", marginLeft:"10%", marginRight: "10%", marginTop:"3%"}}>
 <FormControl  variant="standard" onSubmit={handleSubmit} >
-<InputLabel style={{color:"#ffb703"}}> Title of Mission...</InputLabel>
+<InputLabel style={{color:"#7FFF00"}}> Title of Mission...</InputLabel>
   <Input 
     id="name"
     value={formData.name}
@@ -58,7 +58,7 @@ const Form = ({onAddTodo}) => {
   />
   </FormControl>
   <FormControl>
-  <InputLabel style={{color:"#ffb703"}}>Frequency</InputLabel>
+  <InputLabel style={{color:"#7FFF00"}}>Frequency</InputLabel>
   <Input
     id="area"
     value={formData.category}
@@ -66,11 +66,10 @@ const Form = ({onAddTodo}) => {
     color="warning"
   />
   <FormHelperText style={{color:"white"}}>
-   Description
   </FormHelperText>
   </FormControl>
   <FormControl >
-  <InputLabel style={{color:"#ffb703"}} htmlFor="component-helper">Description</InputLabel>
+  <InputLabel style={{color:"#7FFF00"}} htmlFor="component-helper">Details</InputLabel>
   <Input
     id="description"
     value={formData.description}
@@ -78,7 +77,7 @@ const Form = ({onAddTodo}) => {
     color="warning"
   />
   </FormControl>
-<Button  onClick={handleSubmit} style={{backgroundColor:"#fb8500"}} type="submit" variant="contained">Add Activity</Button>
+<Button  onClick={handleSubmit} style={{backgroundColor:"red"}} type="submit" variant="contained">Add Activity</Button>
 </Box>
 </div>
 );

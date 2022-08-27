@@ -39,7 +39,6 @@ export const MainContainer = () => {
      
   return (
     <div>
-        <h1>Mission Possible</h1>
         <Routes>
       <Route path="/" element={<Home />}/>
       <Route path="/todos"
@@ -48,7 +47,7 @@ export const MainContainer = () => {
       setFilterBy={setFilterBy}
       filter={filterBy}
       handleDeleteClick={handleDeleteClick}/>} />
-      <Route path="/todos/new" 
+      <Route path="/new_todo" 
         element={<Form 
         onAddTodo={handleAddNewTodo}/>} />
     </Routes>

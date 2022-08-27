@@ -1,8 +1,12 @@
 import React from 'react'
+import { Typography } from '@mui/material'
 
 const Home = () => {
   return (
-    <div>Home</div>
+    <div>  <Typography gutterBottom variant="h5" style={{color: "#7FFF00"}}>       
+    Mission Possible
+    </Typography>
+    </div>
   )
 }
 

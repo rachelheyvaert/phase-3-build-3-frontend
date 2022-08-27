@@ -8,20 +8,20 @@ import Button from '@mui/material/Button';
 
 const TodoCard = ({todo, handleDeleteClick}) => {
   return (
-    <Card id={todo.id} key={todo.name} sx={{ maxWidth: 345, background:"#023047",margin:"50px", border:"solid" }}>
+    <Card id={todo.id} key={todo.name} sx={{ maxWidth: 345, background:"#000000",margin:"50px", border:"solid" }}>
       <CardContent>
-        <Typography gutterBottom variant="h5" style={{color: "white"}}>
+        <Typography gutterBottom variant="h5" style={{color: "#7FFF00"}}>
          {todo.name}
         </Typography>
-        <Typography variant="body1" style={{color: "#ffb703"}}>
-        Category: {todo.category}
+        <Typography variant="body2" style={{color: "#40E0D0"}}>
+         Details: {todo.details}
         </Typography>
-        <Typography variant="body2" style={{color: "#219ebc"}}>
-          {todo.description}
+        <Typography variant="body1" style={{color: "white"}}>
+        Category: {todo.category_id}
         </Typography>
       </CardContent>
       <CardActions >
-        <Button onClick={() => handleDeleteClick(todo)} size="small" style={{color:"#ff5003"}}>
+        <Button onClick={() => handleDeleteClick(todo)} size="small" style={{color:"red"}}>
           <DeleteIcon></DeleteIcon>
         </Button>
       </CardActions>
