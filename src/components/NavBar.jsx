@@ -5,7 +5,7 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
+import { Link } from 'react-router-dom';
 
 const NavBar = () => {
   return (
@@ -22,9 +22,10 @@ const NavBar = () => {
           <Typography  style={{color:"#7FFF00"}} variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Control Center
           </Typography>
-          <Button style={{color:"#7FFF00"}}>Home</Button>
-          <Button style={{color:"#7FFF00"}}>Add</Button>
-          <Button style={{color:"#7FFF00"}}>Completed</Button>
+          <Button style={{color:"#7FFF00"}} component={Link} to="/">Home</Button>
+          <Button style={{color:"#7FFF00"}} component={Link} to="/todos">Todos</Button>
+          <Button style={{color:"#7FFF00"}} component={Link} to="/todos/new">Add</Button>
+          <Button style={{color:"#7FFF00"}} component={Link} to="/todos/completed">Completed</Button>
         </Toolbar>
       </AppBar>
     </Box>
