@@ -1,5 +1,7 @@
 import React,  {useState, useEffect} from "react";
-import Form from './Form';
+import NewTodoForm from './NewTodoForm';
+import TodoEditForm from "./TodoEditForm";
+import { useNavigate } from "react-router-dom";
 import TodoList from './TodoList';
 import { Routes, Route} from "react-router-dom";
 import Home from "./Home";
@@ -7,7 +9,7 @@ const baseUrl = `http://localhost:9292/todos`
 export const MainContainer = () => {
     const [todos, setTodos] = useState([]);
     const [filterBy, setFilterBy] = useState("All")
-    
+    const history = useNavigate();
   
     useEffect(()=> {
       fetch(baseUrl)
@@ -16,10 +18,46 @@ export const MainContainer = () => {
     },[])
   
 
-    function handleAddNewTodo(newTodo){
-      const updatedTodoList = [...todos, newTodo];
-      setTodos(updatedTodoList);
-    }
+    const addTodo = (formData) => {
+      fetch(baseUrl, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: 'application/json'
+        },
+        body: JSON.stringify(formData)
+      })
+      .then((r) => r.json())
+      .then((newTodo) => {
+        setTodos(todos.concat(newTodo))
+        history.push(`/todos/${newTodo.id}`)
+      });
+          }
+
+          const updateTodo = (id, formData) => {
+            fetch(`http://localhost:9292/todos/${id}`, {
+              method: 'PATCH',
+              headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json'
+              },
+              body: JSON.stringify(formData)
+            })
+              .then(res => res.json()) 
+              .then(updatedTodo => {
+                // pessimistically update the todo in state after we get a response from the api
+                setTodos(todos.map((todo) => (todo.id === parseInt(id) ? updatedTodo : todo)));
+                history.push(`/todos/${updatedTodo.id}`);
+              })
+          }
+          // const updateTodo = todos.map((todo)=> {
+          //   const updatedTodo = todos.find((todo) => todo.id === parseInt(dogId));
+          //   if (todo === )
+          // })
+    // function handleAddNewTodo(newTodo){
+    //   const updatedTodoList = [...todos, newTodo];
+    //   setTodos(updatedTodoList);
+    // }
  
 
       function handleDeleteClick(todo) {
@@ -31,7 +69,7 @@ export const MainContainer = () => {
       }
     const filteredTodos = todos.filter((todo)=>{
         if(filterBy !== "All"){
-          return todo.category === filterBy
+          return todo.category_id === filterBy
         } else {
           return todos
         }
@@ -48,8 +86,16 @@ export const MainContainer = () => {
       filter={filterBy}
       handleDeleteClick={handleDeleteClick}/>} />
       <Route path="/new_todo" 
-        element={<Form 
-        onAddTodo={handleAddNewTodo}/>} />
+        element={<NewTodoForm 
+        onAddTodo={addTodo}
+        todos={todos}/>} />
+        <Route 
+          path="/todos/:id/edit"
+          render={({ match }) => (
+            <TodoEditForm
+              todo={todos.find((todo) => todo.id === parseInt(match.params.id))}
+              updateTodo={updateTodo}
+               /> )} />
     </Routes>
     </div>
   );

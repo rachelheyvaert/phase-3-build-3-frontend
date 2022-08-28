@@ -8,41 +8,25 @@ import InputLabel from '@mui/material/InputLabel';
 import Button from '@mui/material/Button';
 import { Typography } from '@mui/material';
 
-const Form = ({onAddTodo}) => {
+const NewTodoForm = ({onAddTodo}) => {
     const [formData, setFormData] = useState({
         name: "",
         details: "",
-       category: ""
+       category_id: ""
       })
-       const emptyForm = {
-        name: "",
-        description: "",
-       category: ""
-        }
-        function handleSubmit(e){
+      
+    const handleSubmit = async (e)=> {
             e.preventDefault()
-           
-            fetch(`http://localhost:9292/todos`, {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify(
-             formData
-              ),
-            })
-              .then((r) => r.json())
-              .then((newTodo) => onAddTodo(newTodo));
-             setFormData(emptyForm);
-          }
+          onAddTodo(formData)
+    }
 
-          function handleChange(e) {
-            const key = e.target.id
-             setFormData({
-               ...formData,
-           [key]: e.target.value,
-             })
-           }
+    function handleChange(e) {
+      const key = e.target.id
+        setFormData({
+         ...formData,
+        [key]: e.target.value,
+       })
+    }
 
   return (
     <div><Typography sx={{ flexGrow: 5 }}  mt="20px" variant="h3" align="center" style={{color:"#7FFF00"}}>
@@ -72,7 +56,7 @@ const Form = ({onAddTodo}) => {
   <InputLabel style={{color:"#7FFF00"}} htmlFor="component-helper">Details</InputLabel>
   <Input
     id="description"
-    value={formData.description}
+    value={formData.details}
     onChange={handleChange}
     color="warning"
   />
@@ -82,4 +66,4 @@ const Form = ({onAddTodo}) => {
 </div>
 );
   }
-export default Form;
+export default NewTodoForm;
