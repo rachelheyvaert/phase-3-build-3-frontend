@@ -1,5 +1,6 @@
 import React,  {useState, useEffect} from "react";
 import NewTodoForm from './NewTodoForm';
+import CategoryForm from "./CategoryForm";
 import TodoEditForm from "./TodoEditForm";
 import { useNavigate } from "react-router-dom";
 import TodoList from './TodoList';
@@ -89,13 +90,17 @@ export const MainContainer = () => {
         element={<NewTodoForm 
         onAddTodo={addTodo}
         todos={todos}/>} />
-        <Route 
-          path="/todos/:id/edit"
-          render={({ match }) => (
-            <TodoEditForm
-              todo={todos.find((todo) => todo.id === parseInt(match.params.id))}
-              updateTodo={updateTodo}
-               /> )} />
+      <Route 
+        path="/todos/:id/edit"
+        render={({ match }) => (
+          <TodoEditForm
+            todo={todos.find((todo) => todo.id === parseInt(match.params.id))}
+            updateTodo={updateTodo}
+            /> )}
+      />
+      <Route path="/categories"
+        element={<CategoryForm />}
+      />
     </Routes>
     </div>
   );
