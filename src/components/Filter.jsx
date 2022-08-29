@@ -11,7 +11,6 @@ const Filter = ({filterBy, setFilterBy}) => {
       <option value="All">Filter by...</option>
       <option value="Daily">Daily</option>
       <option value="Weekly">Weekly</option>
-      <option value="Monthly">Pragmatics</option>
       <option value="Yearly">Yearly</option>
     </select>
    </label></div>

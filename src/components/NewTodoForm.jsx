@@ -8,15 +8,18 @@ import InputLabel from '@mui/material/InputLabel';
 import Button from '@mui/material/Button';
 import { Typography } from '@mui/material';
 
-const NewTodoForm = ({onAddTodo}) => {
+const NewTodoForm = ({onAddTodo, categories}) => {
     const [formData, setFormData] = useState({
         name: "",
         details: "",
        category_id: ""
       })
-      
+    const categoryOptions = categories.map((cat)=>{
+        return <option key={cat.id} value={cat.id}>{cat.title}</option>
+    })
     const handleSubmit = async (e)=> {
             e.preventDefault()
+            console.log(formData, 'data in submit')
           onAddTodo(formData)
     }
 
@@ -42,20 +45,22 @@ const NewTodoForm = ({onAddTodo}) => {
   />
   </FormControl>
   <FormControl>
-  <InputLabel style={{color:"#7FFF00"}}>Frequency</InputLabel>
-  <Input
-    id="area"
+  <InputLabel style={{color:"#7FFF00"}}></InputLabel>
+  <select
+    id="category_id"
     value={formData.category}
     onChange={handleChange}
-    color="warning"
-  />
+    color="warning">
+      {categoryOptions}
+    </select>
+
   <FormHelperText style={{color:"white"}}>
   </FormHelperText>
   </FormControl>
   <FormControl >
   <InputLabel style={{color:"#7FFF00"}} htmlFor="component-helper">Details</InputLabel>
   <Input
-    id="description"
+    id="details"
     value={formData.details}
     onChange={handleChange}
     color="warning"
