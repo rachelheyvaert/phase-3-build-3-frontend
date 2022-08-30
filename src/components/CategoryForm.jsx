@@ -2,15 +2,20 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import { Button } from '@mui/material';
+import { useState } from 'react';
 
-const CategoryForm = () => {
-  const [newCategory, setNewCategory] = React.useState('Add a category');
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setNewCategory(event.target.value);
-  };
+const CategoryForm = ({addCategories}) => {
+  const [newCategory, setNewCategory] = useState('');
+
+  function handleChange(e) {
+    const key = e.target.id
+      setNewCategory({
+      [key]: e.target.value,
+     },console.log(newCategory))
+  }
   const handleSubmit = async (e)=> {
     e.preventDefault()
-  //function to add POST with new category
+  addCategories(newCategory)
 }
   return (
     <Box

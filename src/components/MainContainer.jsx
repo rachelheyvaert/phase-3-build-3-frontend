@@ -1,4 +1,4 @@
-import React,  {useState, useEffect} from "react";
+import React,  {useState, useEffect, } from "react";
 import NewTodoForm from './NewTodoForm';
 import CategoryForm from "./CategoryForm";
 import CategoryList from './CategoryList';
@@ -13,7 +13,7 @@ export const MainContainer = () => {
   const [todos, setTodos] = useState([]);
   const [categories, setAllCategories] = useState([]);
   const [filterBy, setFilterBy] = useState("All")
-  const history = useNavigate();
+  let navigate = useNavigate();
   
   useEffect(()=> {
     fetch(baseUrl)
@@ -39,7 +39,7 @@ export const MainContainer = () => {
       .then((r) => r.json())
       .then((newCat) => {
         setTodos(categories.concat(newCat))
-        history.push(`/categories/${newCat.id}`)
+        navigate.push(`/categories/${newCat.id}`)
       });
     }
 
@@ -56,7 +56,7 @@ export const MainContainer = () => {
     .then((r) => r.json())
     .then((newTodo) => {
       setTodos(todos.concat(newTodo))
-      history.push(`/todos/${newTodo.id}`)
+      navigate.push(`/todos/${newTodo.id}`)
     });
   }
 
@@ -73,7 +73,7 @@ export const MainContainer = () => {
     .then(updatedTodo => {
     // pessimistically update the todo in state after we get a response from the api
     setTodos(todos.map((todo) => (todo.id === parseInt(id) ? updatedTodo : todo)));
-      history.push(`/todos/${updatedTodo.id}`);
+      navigate.push(`/todos/${updatedTodo.id}`);
     })
   }
           // const updateTodo = todos.map((todo)=> {
@@ -105,12 +105,14 @@ export const MainContainer = () => {
   return (
     <div>
       <Routes>
-        <Route path="/" element={<Home />}/>
+        <Route path="/" element={<Home
+        onAddCategory={addCategories} />}/>
         <Route path="/todos"
           element={<TodoList 
           todos={filteredTodos}
           setFilterBy={setFilterBy}
           filter={filterBy}
+          categories={categories}
           handleDeleteClick={handleDeleteClick}/>} />
         <Route path="/new_todo" 
           element={<NewTodoForm 
