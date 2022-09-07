@@ -4,25 +4,21 @@ import TextField from '@mui/material/TextField';
 import { Button } from '@mui/material';
 import { useState } from 'react';
 
-const CategoryForm = ({addCategories}) => {
+const CategoryForm = ({addCategories, categories}) => {
   const [newCategory, setNewCategory] = useState('');
 
   function handleChange(e) {
-    const key = e.target.id
-      setNewCategory({
-      [key]: e.target.value,
-     },console.log(newCategory))
+      setNewCategory(e.target.value)
   }
   const handleSubmit = async (e)=> {
     e.preventDefault()
-  addCategories(newCategory)
+    console.log(newCategory, "in category submit")
+    addCategories(newCategory)
 }
   return (
     <Box
       component="form"
-      sx={{
-        '& > :not(style)': { m: 1, width: '25ch' },
-      }}
+      sx={{'& > :not(style)': { m: 1, width: '25ch' },}}
       noValidate
       autoComplete="off"
     >
@@ -32,9 +28,10 @@ const CategoryForm = ({addCategories}) => {
         value={newCategory}
         onChange={handleChange}
       />
-      <Button  onClick={handleSubmit} style={{backgroundColor:"black"}} type="submit" variant="contained">Add Category</Button>
-
- </Box>
+      <Button onClick={handleSubmit}
+         style={{backgroundColor:"black"}} 
+         type="submit" variant="contained"> Add a Category</Button>
+    </Box>
   );
 }
 

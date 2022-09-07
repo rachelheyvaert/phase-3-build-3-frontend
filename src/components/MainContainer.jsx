@@ -1,64 +1,61 @@
 import React,  {useState, useEffect, } from "react";
 import NewTodoForm from './NewTodoForm';
 import CategoryForm from "./CategoryForm";
-import CategoryList from './CategoryList';
-import TodoEditForm from "./TodoEditForm";
+// import CategoryList from './CategoryList';
+import TodoEditForm from "./DisplayedTodo";
 import { useNavigate } from "react-router-dom";
 import TodoList from './TodoList';
 import { Routes, Route} from "react-router-dom";
 import Home from "./Home";
-const baseUrl = `http://localhost:9292/todos`
+
 
 export const MainContainer = () => {
   const [todos, setTodos] = useState([]);
   const [categories, setAllCategories] = useState([]);
-  const [filterBy, setFilterBy] = useState("All")
+  const [filterBy, setFilterBy] = useState([])
   let navigate = useNavigate();
   
   useEffect(()=> {
-    fetch(baseUrl)
+    fetch(`http://localhost:9292/todos`)
     .then((r)=>r.json())
-    .then((data)=>setTodos(data))
-    },[])
+    .then((allTodos)=>setTodos(allTodos))
+    // console.log(todos, 'inside effect')
+   },[]);
   
     useEffect(()=> {
       fetch(`http://localhost:9292/categories`)
       .then((r)=>r.json())
       .then((data)=>setAllCategories(data))
-      },[])
+      // console.log(categories, 'inside 2nd effect')
+      },[]);
 
-  const addCategories = (newCategory) => {
-      fetch(`http://localhost:9292/categories`, {
+      const addCategories = (newCategory) => {
+        console.log(newCategory, "in post")
+        fetch(`http://localhost:9292/categories`, {
         method: "POST",
         headers: {
          "Content-Type": "application/json",
-          Accept: 'application/json'
         },
-          body: JSON.stringify(newCategory)
+          body: JSON.stringify({
+            title: newCategory})
       })
       .then((r) => r.json())
-      .then((newCat) => {
-        setTodos(categories.concat(newCat))
-        navigate.push(`/categories/${newCat.id}`)
-      });
+      .then((newCat) => setAllCategories(categories.concat(newCat))
+      )
     }
 
   const addTodo = (formData) => {
-    console.log(formData, "in add todo")
     fetch(`http://localhost:9292/todos`, {
       method: "POST",
       headers: {
        "Content-Type": "application/json",
-        Accept: 'application/json'
       },
         body: JSON.stringify(formData)
     })
     .then((r) => r.json())
-    .then((newTodo) => {
-      setTodos(todos.concat(newTodo))
-      navigate.push(`/todos/${newTodo.id}`)
-    });
-  }
+    .then((newTodo) => setTodos(todos.concat(newTodo)))
+    };
+  
 
   const updateTodo = (id, formData) => {
     fetch(`http://localhost:9292/todos/${id}`, {
@@ -93,23 +90,25 @@ export const MainContainer = () => {
       const updatedTodos = todos.filter((task)=> task !== todo);
       setTodos(updatedTodos);
   }
-
-  const filteredTodos = todos.filter((todo)=>{
-    if(filterBy !== "All"){
-      return todo.category_id === filterBy
-    } else {
-      return todos
-      }
-  });
+//NEED TO FILTER BY CATEGORY TITLE NOT INTEGER
+  // const filteredTodos = todos.filter((todo)=>{
+  //   if(filterBy !== "All..."){
+  //     return todo.category_id === filterBy
+  //   } else {
+  //     return todos
+  //     }
+  // });
      
   return (
     <div>
       <Routes>
         <Route path="/" element={<Home
-        onAddCategory={addCategories} />}/>
+        addCategories={addCategories} 
+        categories={categories}/>}
+        />
         <Route path="/todos"
           element={<TodoList 
-          todos={filteredTodos}
+          todos={todos}
           setFilterBy={setFilterBy}
           filter={filterBy}
           categories={categories}
@@ -125,12 +124,12 @@ export const MainContainer = () => {
           <TodoEditForm
           todo={todos.find((todo) => todo.id === parseInt(match.params.id))}
           updateTodo={updateTodo}/>)} />
-        <Route path="/categories"
+        {/* <Route path="/categories"
           element={<CategoryList  
-          handleDeleteClick={handleDeleteClick}/>} />
+          handleDeleteClick={handleDeleteClick}/>} /> */}
       </Routes>
     </div>
   );
-}
+        }    
 
 export default MainContainer;

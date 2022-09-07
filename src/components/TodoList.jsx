@@ -6,6 +6,7 @@ import { Typography } from '@mui/material';
 
 export const TodoList = ({filterBy, setFilterBy, handleDeleteClick, todos, categories}) => {
   const todoObj = todos.map((todo)=>{
+    console.log(todos)
     return <TodoCard handleDeleteClick={handleDeleteClick} key={todo.id} todo={todo}
   />})
     return (
@@ -14,6 +15,7 @@ export const TodoList = ({filterBy, setFilterBy, handleDeleteClick, todos, categ
 <Filter filterBy={filterBy} setFilterBy={setFilterBy} categories={categories}/>   
 <Grid container spacing={2} ml="40px">
  {todoObj}
+
  </Grid>
  </div>
   )
