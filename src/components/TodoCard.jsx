@@ -6,10 +6,12 @@ import Typography from '@mui/material/Typography';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Button from '@mui/material/Button';
 
-const TodoCard = ({todo, handleDeleteClick}) => {
+const TodoCard = ({todo, handleDeleteClick, }) => {
   return (
+   
     <Card id={todo.id} key={todo.name} sx={{ maxWidth: 345, background:"#000000",margin:"50px", border:"solid" }}>
       <CardContent>
+
         <Typography gutterBottom variant="h5" style={{color: "#7FFF00"}}>
          {todo.name}
         </Typography>

@@ -1,5 +1,5 @@
 # Task Master Front End
-This is a frontend applicaiton for a To Do list planning app. The objective of this project is to showcase work that I did for Flatiron school. 
+This is a frontend applicaiton for a To Do list planning app. The objective of this project is to showcase work that I have done thus far for Flatiron School. 
 
 ### Requirements
 * node version 16.13.1
@@ -7,10 +7,11 @@ This is a frontend applicaiton for a To Do list planning app. The objective of t
 * yarn version 1.22.18
 
 ## Usage
-Fork and clone
-Run yarn install
-yarn start
-Follow directions for backend [url here]
+
+* Fork and clone
+* Run yarn install
+* yarn start
+* Follow directions for [backend](https://github.com/rachelheyvaert/phase-3-sinatra-react-project)
 
 ### Licensing
 Copyright (c) 2022 Rachel Heyvaert
