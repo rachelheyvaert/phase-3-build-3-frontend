@@ -1,8 +1,7 @@
 import React,  {useState, useEffect, } from "react";
-import NewTodoForm from './NewTodoForm';
-import CategoryForm from "./CategoryForm";
-// import CategoryList from './CategoryList';
-import TodoEditForm from "./DisplayedTodo";
+// // import NewTodoForm from './NewTodoForm';
+// // import CategoryForm from "./CategoryForm";
+// import EditTodo from "./DisplayedTodo";
 import { useNavigate } from "react-router-dom";
 import TodoList from './TodoList';
 import { Routes, Route} from "react-router-dom";
@@ -12,25 +11,25 @@ import Home from "./Home";
 export const MainContainer = () => {
   const [todos, setTodos] = useState([]);
   const [categories, setAllCategories] = useState([]);
-  const [filterBy, setFilterBy] = useState([])
+  const [filterBy, setFilterBy] = useState("All...");
+  const [filteredTodos, setFilteredTodos] = useState([]);
   let navigate = useNavigate();
   
   useEffect(()=> {
     fetch(`http://localhost:9292/todos`)
     .then((r)=>r.json())
-    .then((allTodos)=>setTodos(allTodos))
-    // console.log(todos, 'inside effect')
+    .then((allTodos)=> {
+      setFilteredTodos(allTodos)
+      setTodos(allTodos)})
    },[]);
   
-    useEffect(()=> {
-      fetch(`http://localhost:9292/categories`)
-      .then((r)=>r.json())
-      .then((data)=>setAllCategories(data))
-      // console.log(categories, 'inside 2nd effect')
+   useEffect(()=> {
+     fetch(`http://localhost:9292/categories`)
+     .then((r)=>r.json())
+     .then((data)=>setAllCategories(data))
       },[]);
 
-      const addCategories = (newCategory) => {
-        console.log(newCategory, "in post")
+    const addCategories = (newCategory) => {
         fetch(`http://localhost:9292/categories`, {
         method: "POST",
         headers: {
@@ -55,78 +54,59 @@ export const MainContainer = () => {
     .then((r) => r.json())
     .then((newTodo) => setTodos(todos.concat(newTodo)))
     };
-  
 
-  const updateTodo = (id, formData) => {
+    function handleDeleteClick(todo) {
+      fetch(`http://localhost:9292/todos/${todo.id}`, {
+        method: "DELETE",
+      })
+        const refreshTodos = todos.filter((task)=> task !== todo);
+        setTodos(refreshTodos);
+    }
+  
+  const onUpdateTodo = (id) => {
     fetch(`http://localhost:9292/todos/${id}`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
         Accept: 'application/json'
       },
-        body: JSON.stringify(formData)
+        body: JSON.stringify({
+          completed: true
+        })
     })
     .then(res => res.json()) 
     .then(updatedTodo => {
-    // pessimistically update the todo in state after we get a response from the api
-    setTodos(todos.map((todo) => (todo.id === parseInt(id) ? updatedTodo : todo)));
-      navigate.push(`/todos/${updatedTodo.id}`);
     })
   }
-          // const updateTodo = todos.map((todo)=> {
-          //   const updatedTodo = todos.find((todo) => todo.id === parseInt(dogId));
-          //   if (todo === )
-          // })
-    // function handleAddNewTodo(newTodo){
-    //   const updatedTodoList = [...todos, newTodo];
-    //   setTodos(updatedTodoList);
-    // }
- 
 
-  function handleDeleteClick(todo) {
-    fetch(`http://localhost:9292/todos/${todo.id}`, {
-      method: "DELETE",
-    })
-      const updatedTodos = todos.filter((task)=> task !== todo);
-      setTodos(updatedTodos);
+  function handleFilterChange(e){
+   setFilterBy(e.target.value)
+    if(e.target.value === "All..." ){ 
+      setFilteredTodos(todos) 
+    } else {
+      setFilteredTodos(todos.filter(todo=> todo.category.title === e.target.value))
+    }
   }
-//NEED TO FILTER BY CATEGORY TITLE NOT INTEGER
-  // const filteredTodos = todos.filter((todo)=>{
-  //   if(filterBy !== "All..."){
-  //     return todo.category_id === filterBy
-  //   } else {
-  //     return todos
-  //     }
-  // });
+
      
   return (
     <div>
       <Routes>
         <Route path="/" element={<Home
         addCategories={addCategories} 
-        categories={categories}/>}
+        categories={categories}
+        onAddTodo={addTodo}
+        todos={filteredTodos}/>}
         />
         <Route path="/todos"
           element={<TodoList 
-          todos={todos}
+            handleFilterChange={handleFilterChange}
+          todos={filteredTodos}
+          onUpdateTodo={onUpdateTodo}
           setFilterBy={setFilterBy}
           filter={filterBy}
           categories={categories}
           handleDeleteClick={handleDeleteClick}/>} />
-        <Route path="/new_todo" 
-          element={<NewTodoForm 
-          onAddTodo={addTodo}
-          categories={categories}
-          todos={todos}/>} />
-        <Route 
-          path="/todos/:id/edit"
-          render={({ match }) => (
-          <TodoEditForm
-          todo={todos.find((todo) => todo.id === parseInt(match.params.id))}
-          updateTodo={updateTodo}/>)} />
-        {/* <Route path="/categories"
-          element={<CategoryList  
-          handleDeleteClick={handleDeleteClick}/>} /> */}
       </Routes>
     </div>
   );

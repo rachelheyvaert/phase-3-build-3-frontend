@@ -7,8 +7,6 @@ const App = () => {
     <div>
       <NavBar />
       <MainContainer />
-      
-      {/* <Button  variant="contained">Accept</Button> */}
     </div>
   );
 }

@@ -5,13 +5,23 @@ import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Button from '@mui/material/Button';
+import { useState } from 'react';
+import CheckIcon from '@mui/icons-material/Check';
 
-const TodoCard = ({todo, handleDeleteClick, }) => {
+
+const TodoCard = ({todo, handleDeleteClick, onUpdateTodo}) => {
+  const [click, setClick] = useState(true)
+  function handleClick(){
+    setClick(false)
+    onUpdateTodo(todo.id)
+
+  }
   return (
-   
+    
     <Card id={todo.id} key={todo.name} sx={{ maxWidth: 345, background:"#000000",margin:"50px", border:"solid" }}>
-      <CardContent>
 
+     <Button onClick={()=> handleClick()}> {click ? <CheckIcon style={{color:"black"}}></CheckIcon>  : <CheckIcon style={{color:"green"}}></CheckIcon>} </Button>
+      <CardContent>
         <Typography gutterBottom variant="h5" style={{color: "#7FFF00"}}>
          {todo.name}
         </Typography>
@@ -19,7 +29,7 @@ const TodoCard = ({todo, handleDeleteClick, }) => {
          Details: {todo.details}
         </Typography>
         <Typography variant="body1" style={{color: "white"}}>
-        Category: {todo.category_id}
+        Category: {todo.category.title}
         </Typography>
       </CardContent>
       <CardActions >

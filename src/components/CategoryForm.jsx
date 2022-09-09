@@ -21,16 +21,17 @@ const CategoryForm = ({addCategories, categories}) => {
       sx={{'& > :not(style)': { m: 1, width: '25ch' },}}
       noValidate
       autoComplete="off"
+      align="center"
     >
       <TextField
         id="outlined-name"
-        label="Name"
+        label="Title"
         value={newCategory}
         onChange={handleChange}
       />
       <Button onClick={handleSubmit}
          style={{backgroundColor:"black"}} 
-         type="submit" variant="contained"> Add a Category</Button>
+         type="submit" variant="contained"> Add Category</Button>
     </Box>
   );
 }
