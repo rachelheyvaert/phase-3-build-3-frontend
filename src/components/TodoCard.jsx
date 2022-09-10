@@ -15,7 +15,7 @@ const TodoCard = ({todo, handleDeleteClick, onUpdateTodo, categories}) => {
   const [click, setClick] = useState(true)
   function handleClick(){
     setClick(false)
-    onUpdateTodo(todo.id)
+
 
   }
   return (
@@ -36,7 +36,7 @@ const TodoCard = ({todo, handleDeleteClick, onUpdateTodo, categories}) => {
       </CardContent>
       <CardActions >
         <Button onClick={() => setEditing(!editing)}>Edit</Button>
-       {editing ? <EditForm onUpdateTodo={onUpdateTodo} categories={categories}/> : null}
+       {editing ? <EditForm onUpdateTodo={onUpdateTodo} categories={categories} todo={todo}/> : null}
 
         <Button onClick={() => handleDeleteClick(todo)} size="small" style={{color:"red"}}>
           <DeleteIcon></DeleteIcon>

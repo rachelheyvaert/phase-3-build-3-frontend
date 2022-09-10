@@ -1,5 +1,4 @@
 import React,  {useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import TodoList from './TodoList';
 import { Routes, Route} from "react-router-dom";
 import Home from "./Home";
@@ -10,7 +9,6 @@ export const MainContainer = () => {
   const [categories, setAllCategories] = useState([]);
   const [filterBy, setFilterBy] = useState("All...");
   const [filteredTodos, setFilteredTodos] = useState([]);
-  let navigate = useNavigate();
   
   useEffect(()=> {
     fetch(`http://localhost:9292/todos`)
@@ -61,22 +59,18 @@ export const MainContainer = () => {
         setFilteredTodos(refreshTodos);
     }
   
-  function onUpdateTodo(id) {
-    fetch(`http://localhost:9292/todos/${id}`, {
-      method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json'
-      },
-        body: JSON.stringify({
-          completed: true,
+function handleUpdateTodo(updatedTodo) {
+  const updatedTodos = todos.map((todo)=>{
+    if(todo.id === updatedTodo.id){
+      return updatedTodos;
+    } else {
+      return todo;
+    }
+  });
+   setTodos(updatedTodos);
+   setFilteredTodos(updatedTodos)
+}
 
-        })
-    })
-    .then(res => res.json()) 
-    .then(updatedTodo => {
-    })
-  }
 
   function handleFilterChange(e){
    setFilterBy(e.target.value)
@@ -101,7 +95,7 @@ export const MainContainer = () => {
           element={<TodoList 
           handleFilterChange={handleFilterChange}
           todos={filteredTodos}
-          onUpdateTodo={onUpdateTodo}
+          onUpdateTodo={handleUpdateTodo}
           setFilterBy={setFilterBy}
           filter={filterBy}
           categories={categories}
