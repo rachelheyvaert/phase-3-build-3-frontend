@@ -13,7 +13,7 @@ const Filter = ({filterBy, setFilterBy, categories, handleFilterChange }) => {
     <div  style={{textAlign: "center"}}>
         <label>
     <select className="filter" onChange={handleChange} value={filterBy}>
-      <option>Filter by categories</option>
+      <option>All...</option>
       {categoryOptions}
     </select>
    </label></div>

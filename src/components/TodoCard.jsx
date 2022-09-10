@@ -7,9 +7,11 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import Button from '@mui/material/Button';
 import { useState } from 'react';
 import CheckIcon from '@mui/icons-material/Check';
+import EditForm from './EditForm';
 
 
-const TodoCard = ({todo, handleDeleteClick, onUpdateTodo}) => {
+const TodoCard = ({todo, handleDeleteClick, onUpdateTodo, categories}) => {
+  const [editing, setEditing] = useState(false)
   const [click, setClick] = useState(true)
   function handleClick(){
     setClick(false)
@@ -33,6 +35,9 @@ const TodoCard = ({todo, handleDeleteClick, onUpdateTodo}) => {
         </Typography>
       </CardContent>
       <CardActions >
+        <Button onClick={() => setEditing(!editing)}>Edit</Button>
+       {editing ? <EditForm onUpdateTodo={onUpdateTodo} categories={categories}/> : null}
+
         <Button onClick={() => handleDeleteClick(todo)} size="small" style={{color:"red"}}>
           <DeleteIcon></DeleteIcon>
         </Button>

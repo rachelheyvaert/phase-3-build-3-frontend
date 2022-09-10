@@ -1,7 +1,4 @@
-import React,  {useState, useEffect, } from "react";
-// // import NewTodoForm from './NewTodoForm';
-// // import CategoryForm from "./CategoryForm";
-// import EditTodo from "./DisplayedTodo";
+import React,  {useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import TodoList from './TodoList';
 import { Routes, Route} from "react-router-dom";
@@ -60,10 +57,11 @@ export const MainContainer = () => {
         method: "DELETE",
       })
         const refreshTodos = todos.filter((task)=> task !== todo);
-        setTodos(refreshTodos);
+        setTodos(refreshTodos)
+        setFilteredTodos(refreshTodos);
     }
   
-  const onUpdateTodo = (id) => {
+  function onUpdateTodo(id) {
     fetch(`http://localhost:9292/todos/${id}`, {
       method: 'PATCH',
       headers: {
@@ -71,7 +69,8 @@ export const MainContainer = () => {
         Accept: 'application/json'
       },
         body: JSON.stringify({
-          completed: true
+          completed: true,
+
         })
     })
     .then(res => res.json()) 
@@ -100,7 +99,7 @@ export const MainContainer = () => {
         />
         <Route path="/todos"
           element={<TodoList 
-            handleFilterChange={handleFilterChange}
+          handleFilterChange={handleFilterChange}
           todos={filteredTodos}
           onUpdateTodo={onUpdateTodo}
           setFilterBy={setFilterBy}

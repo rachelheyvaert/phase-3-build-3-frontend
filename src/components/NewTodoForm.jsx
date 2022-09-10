@@ -35,7 +35,7 @@ const NewTodoForm = ({onAddTodo, categories}) => {
     <div><Typography sx={{ flexGrow: 5 }}  mt="40px" variant="h4" align="center" style={{color:"black"}}>
     Create a Mission</Typography>
 <Box  sx={{ '& > :not(style)': { m: 8} }} style={{backgroundColor:"grey", textAlign: "center", marginLeft:"10%", marginRight: "10%", marginTop:"3%"}}>
-<FormControl  variant="standard" onSubmit={handleSubmit} >
+<FormControl  variant="standard" >
 <InputLabel style={{color:"#7FFF00"}}> Title of Mission...</InputLabel>
   <Input 
     id="name"
