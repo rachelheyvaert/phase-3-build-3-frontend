@@ -72,7 +72,6 @@ const EditForm = ({onUpdateTodo, categories, todo}) => {
          color="warning">
       {categoryOptions}     
         </select>
-       
     </FormControl>
    
    </Box>
