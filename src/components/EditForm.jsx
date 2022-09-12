@@ -1,17 +1,23 @@
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import { FormControl, Input, FormHelperText, InputLabel } from '@mui/material';
-import React from 'react'
+import React, { useEffect } from 'react'
 import {useState} from 'react'
 
 const EditForm = ({onUpdateTodo, categories, todo}) => {
-    const {id, name, category, details} = todo
     const [formValue, setFormValue] = useState({ 
-        name: todo.name,
-        details: todo.details,
-        category: todo.category_id
+        name: "",
+        details: "",
+        category: "",
     })
-    const [newValues, setNewValues] = useState(formValue);
+    useEffect(()=>{
+        setFormValue({
+            name: todo.name,
+            details: todo.details,
+            category_id: todo.category.id
+        })
+    },[])
+
 
     const categoryOptions = categories.map((cat)=>{
         return <option key={cat.id} value={cat.id}>{cat.title}</option>
@@ -27,16 +33,17 @@ const EditForm = ({onUpdateTodo, categories, todo}) => {
 
     function handleSubmit(e){
         e.preventDefault();
-        fetch(`http://localhost:9292/todos/${id}`, {
+        fetch(`http://localhost:9292/todos/${todo.id}`, {
           method: 'PATCH',
           headers: {
             'Content-Type': 'application/json',
-            Accept: 'application/json'
+            'Accept': "application/json",
           },
-            body: JSON.stringify(newValues)
+            body: JSON.stringify(formValue)
         })
         .then(res => res.json()) 
-        .then((updatedTodo => onUpdateTodo(updatedTodo)))
+        .then((updatedTodo => {
+            onUpdateTodo(updatedTodo)}))
       }
 
   return (

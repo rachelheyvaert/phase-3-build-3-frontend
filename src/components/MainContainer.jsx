@@ -62,7 +62,7 @@ export const MainContainer = () => {
 function handleUpdateTodo(updatedTodo) {
   const updatedTodos = todos.map((todo)=>{
     if(todo.id === updatedTodo.id){
-      return updatedTodos;
+      return updatedTodo;
     } else {
       return todo;
     }

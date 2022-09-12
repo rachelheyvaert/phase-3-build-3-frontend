@@ -13,15 +13,14 @@ import EditForm from './EditForm';
 const TodoCard = ({todo, handleDeleteClick, onUpdateTodo, categories}) => {
   const [editing, setEditing] = useState(false)
   const [click, setClick] = useState(true)
+ 
   function handleClick(){
-    setClick(false)
-
-
+    setClick(false);
+    console.log(todo)
   }
-  return (
-    
-    <Card id={todo.id} key={todo.name} sx={{ maxWidth: 345, background:"#000000",margin:"50px", border:"solid" }}>
 
+  return (
+    <Card id={todo.id} key={todo.name} sx={{ maxWidth: 345, background:"#000000",margin:"50px", border:"solid" }}>
      <Button onClick={()=> handleClick()}> {click ? <CheckIcon style={{color:"black"}}></CheckIcon>  : <CheckIcon style={{color:"green"}}></CheckIcon>} </Button>
       <CardContent>
         <Typography gutterBottom variant="h5" style={{color: "#7FFF00"}}>
@@ -36,8 +35,7 @@ const TodoCard = ({todo, handleDeleteClick, onUpdateTodo, categories}) => {
       </CardContent>
       <CardActions >
         <Button onClick={() => setEditing(!editing)}>Edit</Button>
-       {editing ? <EditForm onUpdateTodo={onUpdateTodo} categories={categories} todo={todo}/> : null}
-
+       {editing ? <EditForm onUpdateTodo={onUpdateTodo} categories={categories} todo={todo} />  : null}
         <Button onClick={() => handleDeleteClick(todo)} size="small" style={{color:"red"}}>
           <DeleteIcon></DeleteIcon>
         </Button>
