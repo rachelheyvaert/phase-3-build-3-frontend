@@ -1,6 +1,6 @@
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import { FormControl, Input, FormHelperText, InputLabel } from '@mui/material';
+import { FormControl, Input, InputLabel } from '@mui/material';
 import React, { useEffect } from 'react'
 import {useState} from 'react'
 
@@ -8,43 +8,53 @@ const EditForm = ({onUpdateTodo, categories, todo}) => {
     const [formValue, setFormValue] = useState({ 
         name: "",
         details: "",
-        category: "",
+        categoryTitle: "",
+        category_id: ""
     })
+
     useEffect(()=>{
         setFormValue({
             name: todo.name,
             details: todo.details,
-            category_id: todo.category.id
-        })
+            category_id: todo.category_id,
+        }) 
     },[])
 
 
     const categoryOptions = categories.map((cat)=>{
-        return <option key={cat.id} value={cat.id}>{cat.title}</option>
+        return <option key={cat.id}  value={cat.id}>{cat.title}</option>
     })
 
     function handleChange(e){
+        //not updating the select
         const key = e.target.id
+        // console.log(formValue.categoryTitle);
         setFormValue({
             ...formValue,
             [key]: e.target.value
+            
         })
     }
 
-    function handleSubmit(e){
-        e.preventDefault();
+    const handleSubmit = async (e)=> {
+        e.preventDefault()
+        console.log(formValue, 'data in submit')
+      updateTodo(formValue)
+}
+
+
+    function updateTodo(formValue){
         fetch(`http://localhost:9292/todos/${todo.id}`, {
-          method: 'PATCH',
-          headers: {
-            'Content-Type': 'application/json',
-            'Accept': "application/json",
-          },
-            body: JSON.stringify(formValue)
-        })
-        .then(res => res.json()) 
-        .then((updatedTodo => {
-            onUpdateTodo(updatedTodo)}))
-      }
+            method: 'PATCH',
+            headers: {
+              'Content-Type': 'application/json',
+              'Accepts': "application/json",
+            },
+              body: JSON.stringify(formValue)
+          })
+          .then(res => res.json())        
+          .then((updatedTodo => onUpdateTodo(updatedTodo)))
+    }
 
   return (
     <div style={{color:"white"}}>
@@ -73,7 +83,7 @@ const EditForm = ({onUpdateTodo, categories, todo}) => {
       {categoryOptions}     
         </select>
     </FormControl>
-   
+
    </Box>
     </div>
   

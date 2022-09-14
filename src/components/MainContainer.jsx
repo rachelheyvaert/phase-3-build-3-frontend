@@ -60,6 +60,11 @@ export const MainContainer = () => {
     }
   
 function handleUpdateTodo(updatedTodo) {
+  console.log(updatedTodo, "in handle update")
+  let todoInState = todos.find((todo)=> todo.id === updatedTodo.id)
+  let categoryInState = categories.find((category)=> category.id === updatedTodo.category_id)
+  // debugger
+  updatedTodo.category = ({id: categoryInState.id, title: categoryInState.title})
   const updatedTodos = todos.map((todo)=>{
     if(todo.id === updatedTodo.id){
       return updatedTodo;

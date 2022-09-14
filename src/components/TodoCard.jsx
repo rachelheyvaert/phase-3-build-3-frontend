@@ -17,6 +17,7 @@ const TodoCard = ({todo, handleDeleteClick, onUpdateTodo, categories}) => {
   function handleClick(){
     setClick(false);
     console.log(todo)
+    console.log(todo.category.title)
   }
 
   return (
@@ -31,6 +32,7 @@ const TodoCard = ({todo, handleDeleteClick, onUpdateTodo, categories}) => {
         </Typography>
         <Typography variant="body1" style={{color: "white"}}>
         Category: {todo.category.title}
+       
         </Typography>
       </CardContent>
       <CardActions >

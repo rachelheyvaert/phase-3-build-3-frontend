@@ -24,8 +24,6 @@ const NavBar = () => {
           </Typography>
           <Button style={{color:"#7FFF00"}} component={Link} to="/">Home</Button>
           <Button style={{color:"#7FFF00"}} component={Link} to="/todos">Todos</Button>
-          {/* <Button style={{color:"#7FFF00"}} component={Link} to="/new_todo">Add</Button> */}
-          {/* <Button style={{color:"#7FFF00"}} component={Link} to="/categories">Categories</Button> */}
         </Toolbar>
       </AppBar>
     </Box>
