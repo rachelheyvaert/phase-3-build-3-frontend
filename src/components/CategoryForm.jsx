@@ -14,6 +14,7 @@ const CategoryForm = ({addCategories, categories}) => {
     e.preventDefault()
     console.log(newCategory, "in category submit")
     addCategories(newCategory)
+    setNewCategory("")
 }
   return (
     <Box

@@ -101,6 +101,8 @@ function handleUpdateTodo(updatedTodo) {
           handleFilterChange={handleFilterChange}
           todos={filteredTodos}
           onUpdateTodo={handleUpdateTodo}
+          setFilteredTodos={setFilteredTodos}
+          setTodos={setTodos}
           setFilterBy={setFilterBy}
           filter={filterBy}
           categories={categories}

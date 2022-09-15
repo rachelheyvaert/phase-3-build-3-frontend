@@ -19,8 +19,12 @@ const NewTodoForm = ({onAddTodo, categories}) => {
     })
     const handleSubmit = async (e)=> {
             e.preventDefault()
-            console.log(formData, 'data in submit')
           onAddTodo(formData)
+          setFormData({
+            name: "",
+        details: "",
+       category_id: ""
+          })
     }
 
     function handleChange(e) {
